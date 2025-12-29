@@ -33,7 +33,19 @@ FactBridge/
 ├── requirements.txt
 └── README.md
 
+## API Endpoints
 
+### POST /documents/upload
+Uploads a document to the system.
+
+Purpose:
+- Acts as entry point for RAG ingestion pipeline
+- Stores raw document before embedding
+
+Future Enhancements:
+- File validation
+- Metadata extraction
+- Vector indexing
 
 ## Next Steps
 - Implement document ingestion
