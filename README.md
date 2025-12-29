@@ -47,6 +47,18 @@ Future Enhancements:
 - Metadata extraction
 - Vector indexing
 
+## Environment Configuration
+
+This project uses environment variables for configuration.
+
+Steps:
+1. Copy `.env.example` to `.env`
+2. Update values as needed
+3. Never commit `.env` to version control
+
+This ensures security and clean deployment practices.
+
+
 ## Next Steps
 - Implement document ingestion
 - Add vector embedding pipeline
