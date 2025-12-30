@@ -1,12 +1,10 @@
 import os
-from pypdf import PdfReader
+from PyPDF2 import PdfReader
 
 UPLOAD_DIR = "data/uploads"
 
+
 def extract_text_from_pdf(filename: str) -> str:
-    """
-    Reads a PDF file from uploads folder and returns extracted text
-    """
     file_path = os.path.join(UPLOAD_DIR, filename)
 
     if not os.path.exists(file_path):
@@ -21,3 +19,19 @@ def extract_text_from_pdf(filename: str) -> str:
             full_text += text + "\n"
 
     return full_text
+
+
+def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50):
+    """
+    Split text into overlapping chunks
+    """
+    chunks = []
+    start = 0
+
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start = end - overlap
+
+    return chunks
