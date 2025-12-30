@@ -3,11 +3,11 @@ from app.api.documents import router as documents_router
 
 app = FastAPI(
     title="FactBridge API",
-    description="GenAI-powered document verification system",
+    description="GenAI-powered document ingestion and verification system",
     version="0.1.0"
 )
 
-# Include document routes
+# include document routes
 app.include_router(
     documents_router,
     prefix="/documents",
