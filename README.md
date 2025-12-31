@@ -1,30 +1,30 @@
 # FactBridge – GenAI Document Ingestion Platform
 
-FactBridge is a GenAI-ready backend system built using FastAPI.
+FactBridge is a GenAI-ready backend built using FastAPI.
 It ingests documents, extracts text, chunks content, and prepares
 data for Retrieval-Augmented Generation (RAG).
+
+## Current Features
+- FastAPI async backend
+- PDF upload API
+- Text extraction using PyPDF2
+- Chunking with overlap
+- Swagger UI for testing
 
 ## Tech Stack
 - FastAPI (Async)
 - Pydantic
 - PyPDF2
-- Docker Compose
-- Redis (task queue ready)
+- Docker (planned)
+- Redis (planned)
+- Vector DB (ChromaDB / Pinecone – planned)
 
-## GenAI Architecture
-PDF → Text Extraction → Chunking → (LlamaIndex / ChromaDB planned) → LLM
+## Architecture (Current)
+PDF → Text Extraction → Chunking → API Response
 
-## AI Stack (Planned)
-- LlamaIndex for document indexing
-- LangGraph for agent workflows
-- ChromaDB for vector storage
-- Arize Phoenix for hallucination monitoring
-
-## DevOps
-- Docker Compose for local orchestration
-- Redis for async task processing
-- Kubernetes (Helm) ready architecture
+## Architecture (Next – GenAI)
+PDF → Chunking → Embeddings → Vector DB → LLM (RAG)
 
 ## Status
-- Core ingestion pipeline implemented
-- AI layer plug-in ready
+✅ Backend stable  
+🚧 GenAI layer in progress
