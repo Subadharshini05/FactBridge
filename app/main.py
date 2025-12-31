@@ -1,14 +1,11 @@
 from fastapi import FastAPI
-from app.api.documents import router as document_router
+from app.api.documents import router as documents_router
 
-app = FastAPI(
-    title="FactBridge",
-    description="GenAI-ready document ingestion system",
-    version="1.0.0"
-)
+app = FastAPI(title="FactBridge API")
 
-app.include_router(document_router, prefix="/documents", tags=["Documents"])
+app.include_router(documents_router)
+
 
 @app.get("/")
-async def root():
+def root():
     return {"status": "FactBridge backend running"}
