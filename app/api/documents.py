@@ -1,40 +1,27 @@
 from fastapi import APIRouter, UploadFile, File
-import os
-import shutil
+from pathlib import Path
 
-from app.services.ingestion import (
-    extract_text_from_pdf,
-    chunk_text,
-    
-)
+from app.services.ingestion import extract_text_from_pdf, chunk_text
+from app.models.schemas import UploadResponse
 
 router = APIRouter()
 
-UPLOAD_DIR = "data/uploads"
+UPLOAD_DIR = Path("data/uploads")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 
-@router.post("/upload")
+@router.post("/upload", response_model=UploadResponse)
 async def upload_document(file: UploadFile = File(...)):
-    # 1. ensure upload folder exists
-    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    file_path = UPLOAD_DIR / file.filename
 
-    # 2. save uploaded file
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+    with open(file_path, "wb") as f:
+        f.write(await file.read())
 
-    # 3. extract text from PDF
     text = extract_text_from_pdf(file.filename)
-
-    # 4. chunk the text
     chunks = chunk_text(text)
 
-    # 5. vectorize & store chunks
-    chunks_count = vectorize_and_store(chunks, file.filename)
-
-    # 6. response
     return {
-        "message": "Document uploaded and vectorized successfully",
+        "message": "Document uploaded and processed successfully",
         "filename": file.filename,
-        "chunks_stored": chunks_count
+        "chunks_count": len(chunks)
     }
