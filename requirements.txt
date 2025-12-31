@@ -3,5 +3,3 @@ uvicorn
 python-multipart
 pydantic
 PyPDF2
-chromadb
-sentence-transformers==2.2.2
